@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/LineTen.Api/bin/Debug/net7.0
+/LineTen.Api/obj
+/LineTen.Common/bin/Debug/net7.0
+/LineTen.Common/obj
+/LineTen.Persistence/bin/Debug/net7.0
+/LineTen.Persistence/obj
+/LineTen.Services/bin/Debug/net7.0
+/LineTen.Services/obj
