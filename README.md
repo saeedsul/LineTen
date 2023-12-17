@@ -23,3 +23,26 @@
 #==============================================================================================================
 
 All api endpoints are RESTFUL it can be called from swagger.
+
+#=============================================================================================================
+
+# To run application in terraform:
+
+1. please make sure terraform is installed.
+2. Docker is installed.
+
+# how to run it locally:
+
+1. locate Dockerfile in root folder.
+2. use powershell or any other command window
+3. we need to build api image first and should be named as lineten:10 .
+4. navigate to the root folder and type: docker build -t lineten:10 .
+
+# After image is created open terminal and navigate to Iac folder.
+
+1. in your terminal type terraform init
+2. terraform apply --auto-approve
+
+terraform should now creae 2 containers for you.
+
+open your browser and type http://localhost:3000/swagger/index.html
