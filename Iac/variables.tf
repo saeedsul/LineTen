@@ -1,6 +1,12 @@
+
+variable "docker_host" {
+  default = "npipe:////.//pipe//docker_engine"
+  type = string        
+}
+
 variable "network_name" {
   description = "Name of the Docker network"
-  default     = "demo_network"
+  default     = "line_network"
 }
 
 variable "mssql_container_name" {
@@ -13,12 +19,12 @@ variable "line_ten_container_name" {
   default     = "line_ten_api_container"
 }
 
-variable "volume_name" {
-  description = "Name of the Docker volume"
-  default     = "database"
+variable "db_volume_name" {
+  default = "terraform-database_data"  
+  type = string      
 }
 
-variable "volume_path" {
-  default     = "/var/opt/mssql/"
-  description = "Container volume path"
+variable "db_volume_path" {
+  default = "/var/opt/mssql/"
+  type = string      
 }
