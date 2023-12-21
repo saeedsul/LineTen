@@ -1,12 +1,12 @@
-# To run this project on local machine you need to at least have LocalDb or sqlExpress installed.
+ To run this project on local machine you need to at least have LocalDb or sqlExpress installed.
 
-# In the Api project the connection string is connected to (localdb)\\mssqllocaldb.
+ In the Api project the connection string is connected to (localdb)\\mssqllocaldb.
 
-# Project is using EF code first so it will create the database on the first call to any of the api endpoints.
+ Project is using EF code first so it will create the database on the first call to any of the api endpoints.
 
-# Database is seeded with 3 records for each table (Customer, Orders, Products).
+ Database is seeded with 3 records for each table (Customer, Orders, Products).
 
-# We have 65 unit Tests that covers all scenarios for both controllers and services.
+ We have 65 unit Tests that covers all scenarios for both controllers and services.
 
 #=============================================================================================================
 
