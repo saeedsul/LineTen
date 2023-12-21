@@ -43,6 +43,6 @@ All api endpoints are RESTFUL it can be called from swagger.
 1. in your terminal type terraform init
 2. terraform apply --auto-approve
 
-terraform should now creae 2 containers for you.
+terraform should now create 2 containers for you.
 
 open your browser and type http://localhost:3000/swagger/index.html
