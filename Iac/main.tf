@@ -20,15 +20,36 @@ resource "docker_image" "mssql_server" {
   keep_locally = true
 }
 
+locals {
+  secrets_content = file("${path.module}/secrets.txt")
+
+  content_debug = local.secrets_content
+
+  secrets = {
+    for line in split("\n", local.secrets_content) :
+    split(":", line)[0] => split(":", line)[1] if length(split(":", line)) > 1
+  }
+
+  mssql_sa_password = try(base64decode(replace(local.secrets["SQL_SA_PASSWORD"], "/\\s/g", "")), null)
+}
+
+output "mssql_sa_password" {
+  description = "MSSQL SA Password"
+  value       = local.mssql_sa_password
+}
+
 resource "docker_container" "mssql_container" {
   name  = "mssql_container"
   image = docker_image.mssql_server.name
-  env = ["ACCEPT_EULA=Y", "MSSQL_SA_PASSWORD=Password1!"]
+  env = [
+    "ACCEPT_EULA=Y",
+    "MSSQL_SA_PASSWORD=${local.mssql_sa_password}"
+  ]
   ports {
     internal = 1433
     external = 1433
   }
- 
+
   volumes {
     volume_name    = var.db_volume_name
     container_path = var.db_volume_path
@@ -50,14 +71,14 @@ resource "docker_container" "line_ten_api_container" {
     internal = 80
     external = 3000
   }
-  
+
   depends_on = [docker_container.mssql_container]
   env = [
     "ASPNETCORE_ENVIRONMENT=Development",
-    "SQL_SERVER=mssql_container", 
+    "SQL_SERVER=mssql_container",
     "SQL_USER=SA",
-    "SQL_PASSWORD=Password1!",
-    "ConnectionStrings__dbConnectionString=Server=mssql_container;Database=TerraformDb;User=SA;Password=Password1!;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"
+    "SQL_PASSWORD=${local.mssql_sa_password}",
+    "ConnectionStrings__dbConnectionString=Server=mssql_container;Database=TerraformDb;User=SA;Password=${local.mssql_sa_password};Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"
   ]
   network_mode = var.network_name
 } 
