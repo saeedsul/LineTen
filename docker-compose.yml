@@ -10,6 +10,8 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=myStong_Password123# 
+    volumes:
+      - dbdata:/var/opt/mssql 
 
   lineten.api:
     image: ${DOCKER_REGISTRY-}linetenapi
@@ -23,4 +25,6 @@ services:
       - SqlServerDb
     environment:
       ConnectionStrings__dbConnectionString: "Server=SqlServerDb;Database=LineTenDb;User Id=SA;Password=myStong_Password123#;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"
-    
+
+volumes:
+  dbdata:
